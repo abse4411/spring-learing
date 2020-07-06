@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+			    http://www.springframework.org/schema/beans/spring-beans.xsd
+			    http://www.springframework.org/schema/context
+			    http://www.springframework.org/schema/context/spring-context.xsd
+			    http://www.springframework.org/schema/aop
+			    http://www.springframework.org/schema/aop/spring-aop.xsd">
+    <bean id="userService" class="com.boss.ioc.service.UserService" scope="singleton"></bean>
+    <bean  id="sysService" class="com.boss.ioc.service.impl.SysServiceImpl"></bean>
+    <bean id="liveBean" class="com.boss.ioc.bean.LiveBean" scope="prototype"
+          init-method="init" destroy-method="destroy">
+    </bean>
+    <bean id="userDao" class="com.boss.ioc.dao.UserDao"></bean>
+<!--    构造函数注入-->
+    <bean  id="ConstructInjectionUserService"
+           class="com.boss.ioc.service.ConstructerInjectionUserService"
+           scope="singleton">
+        <constructor-arg ref="userDao"></constructor-arg>
+    </bean>
+<!--    属性注入-->
+    <bean id="propertyInjectionUserService" class="com.boss.ioc.service.PropertyInjectionUserService" >
+        <property name="userDao" ref="userDao"/>
+    </bean>
+<!--    数据注入-->
+    <bean id="student" class="com.boss.ioc.bean.Student" >
+        <property name="id" value="123"/>
+        <property name="hobbies">
+            <list>
+                <value>唱</value>
+                <value>跳</value>
+                <value>Rap</value>
+                <value>篮球</value>
+            </list>
+        </property>
+    </bean>
+</beans>
